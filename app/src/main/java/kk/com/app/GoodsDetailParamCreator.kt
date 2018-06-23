@@ -3,7 +3,7 @@ package kk.com.app
 import kk.com.datashare.NetPramCreator
 import org.json.JSONObject
 
-class GoodsDetailParamCreator : NetPramCreator {
+class GoodsDetailParamCreator(cause: String) : NetPramCreator(cause) {
 
     companion object {
         const val TAG: String = "GoodsDetailParamCreator"

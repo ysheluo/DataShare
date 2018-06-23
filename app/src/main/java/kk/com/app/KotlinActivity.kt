@@ -2,20 +2,14 @@ package kk.com.app
 
 import android.app.Activity
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
 import android.util.Log
-import android.widget.Button
 import io.reactivex.disposables.Disposable
 import kk.com.datashare.DataManager
 import kk.com.datashare.IListener
-import kk.com.rxjava.R
+import kk.com.demo.R
 
 class KotlinActivity : Activity() {
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var button: Button
-
-    private lateinit var list: MutableList<String>
 
     private lateinit var disposable: Disposable
 
@@ -27,14 +21,15 @@ class KotlinActivity : Activity() {
         setContentView(R.layout.activity_kotlin)
 
         createKey = DataManager.createKey()
-        DataManager.request(createKey, NetShareRequester<Test.A>(GoodsDetailParamCreator()))
+        DataManager.request(createKey, NetShareRequester<Test.A>(GoodsDetailParamCreator("新建")))
+        DataManager.request(createKey, NetShareRequester<Test.A>(GoodsDetailParamCreator("刷新")))
 
+        DataManager.request(createKey, NetShareRequester<Test.A>(GoodsDetailParamCreator("过来")))
 
         DataManager.listen(createKey, object : IListener<String> {
 
-            override fun result(data: String) {
-
-                Log.e("=====", "哈哈哈哈$data")
+            override fun result(data: String, cause: String) {
+                Log.e("=====", "哈哈哈哈$data$cause")
             }
 
             override fun key(): String {

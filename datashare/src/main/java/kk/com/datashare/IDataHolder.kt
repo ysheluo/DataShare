@@ -11,7 +11,7 @@ interface IDataHolder<T> {
 
     fun registerListener(listener: IListener<T>)
 
-    fun doRequest(cause:String)
+    fun doRequest(cause: String)
 
     fun unRegisterListener(listener: IListener<T>)
 

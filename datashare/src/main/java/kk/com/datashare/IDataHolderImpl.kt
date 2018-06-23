@@ -20,17 +20,17 @@ class IDataHolderImpl<T>(var key: String) : IDataHolder<T> {
 
     private var state: Int = NOT_STRT
 
-    private var cause:String=""
+    private var cause: String = ""
 
-    override fun doRequest(cause:String) {
+    override fun doRequest(cause: String) {
         state = REQUESTING
-        this.cause=cause
+        this.cause = cause
     }
 
 
     override fun registerListener(listener: IListener<T>) {
         if (data != null && state == END) {
-            listener.result(this.data as T,cause)
+            listener.result(this.data as T, cause)
         }
         listeners.add(listener)
     }
@@ -47,10 +47,11 @@ class IDataHolderImpl<T>(var key: String) : IDataHolder<T> {
 
     private var data: T? = null
 
+    @Synchronized
     override fun setResult(data: T) {
         this.data = data
         listeners.forEach {
-            it.result(data,cause)
+            it.result(data, cause)
         }
     }
 }

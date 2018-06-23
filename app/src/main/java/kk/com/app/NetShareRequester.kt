@@ -6,6 +6,10 @@ import kk.com.datashare.NetPramCreator
 
 class NetShareRequester<T>(private val paramCreator: NetPramCreator) : IRequesterImpl<T>() {
 
+    override fun requestCause(): String {
+       return paramCreator.createCause()
+    }
+
     override fun key(): String {
         return paramCreator.key()
     }
