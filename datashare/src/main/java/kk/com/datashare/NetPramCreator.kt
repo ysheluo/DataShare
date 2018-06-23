@@ -1,9 +1,13 @@
 package kk.com.datashare
 
-interface NetPramCreator {
+abstract class NetPramCreator(var createCause:String){
 
-    fun key(): String
+    abstract fun key(): String
 
-    fun provideParam(): String
+    abstract fun provideParam(): String
+
+    fun createCause():String{
+        return createCause
+    }
 
 }

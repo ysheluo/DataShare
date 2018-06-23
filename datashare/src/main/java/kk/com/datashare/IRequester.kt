@@ -12,4 +12,6 @@ interface IRequester<T> {
 
     fun key(): String
 
+    fun requestCause(): String
+
 }

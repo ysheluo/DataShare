@@ -4,6 +4,11 @@ package kk.com.datashare
 class IDataHolderImpl<T>(var key: String) : IDataHolder<T> {
 
 
+    override fun getResult(): T? {
+        return data
+    }
+
+
     companion object {
         val NOT_STRT = 1
         val REQUESTING: Int = 2
@@ -15,14 +20,17 @@ class IDataHolderImpl<T>(var key: String) : IDataHolder<T> {
 
     private var state: Int = NOT_STRT
 
-    override fun doRequest() {
+    private var cause:String=""
+
+    override fun doRequest(cause:String) {
         state = REQUESTING
+        this.cause=cause
     }
 
 
     override fun registerListener(listener: IListener<T>) {
         if (data != null && state == END) {
-            listener.result(this.data as T)
+            listener.result(this.data as T,cause)
         }
         listeners.add(listener)
     }
@@ -39,10 +47,10 @@ class IDataHolderImpl<T>(var key: String) : IDataHolder<T> {
 
     private var data: T? = null
 
-    override fun setData(data: T) {
+    override fun setResult(data: T) {
         this.data = data
         listeners.forEach {
-            it.result(data)
+            it.result(data,cause)
         }
     }
 }

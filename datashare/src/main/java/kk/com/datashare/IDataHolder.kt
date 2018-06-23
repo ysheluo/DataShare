@@ -5,15 +5,16 @@ package kk.com.datashare
  */
 interface IDataHolder<T> {
 
-    fun setData(data: T)
+    fun setResult(data: T)
 
     fun key(): String
 
     fun registerListener(listener: IListener<T>)
 
-    fun doRequest()
-
+    fun doRequest(cause:String)
 
     fun unRegisterListener(listener: IListener<T>)
+
+    fun getResult(): T?
 
 }

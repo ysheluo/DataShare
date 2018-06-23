@@ -46,6 +46,13 @@ class DataManager {
             return getDataManager(pageKey).listen(listener)
         }
 
+        /**
+         * 想要迅速获取结果
+         */
+        fun <T> getResult(pageKey: Int, key: String): T? {
+            return getDataManager(pageKey).getResult(key)
+        }
+
         fun createKey(): Int {
             return AtomicInteger().incrementAndGet()
         }
@@ -56,6 +63,12 @@ class DataManager {
             blockDataManagers.remove(createKey)
         }
 
+    }
+
+
+    private fun <T> getResult(key: String): T? {
+        val dataHolder = getDataHolder<T>(key)
+        return dataHolder.getResult()
     }
 
 
@@ -78,7 +91,6 @@ class DataManager {
     private fun <T> getDataHolder(key: String): IDataHolder<T> {
         var iDataHolder = dataHolders[key]
         if (iDataHolder == null) {
-
             iDataHolder = if (dataHolderFactory == null) {
                 IDataHolderImpl<T>(key)
             } else {

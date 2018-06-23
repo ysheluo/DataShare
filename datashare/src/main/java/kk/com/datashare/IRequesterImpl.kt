@@ -10,7 +10,7 @@ abstract class IRequesterImpl<T> : IRequester<T> {
     }
 
     override fun doRequest() {
-        dataHolder?.doRequest()
+        dataHolder?.doRequest(requestCause())
         onRequest()
     }
 
@@ -18,7 +18,7 @@ abstract class IRequesterImpl<T> : IRequester<T> {
 
 
     final override fun setResult(data: T) {
-        dataHolder?.setData(data)
+        dataHolder?.setResult(data)
     }
 
 }

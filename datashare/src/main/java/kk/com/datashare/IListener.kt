@@ -7,6 +7,6 @@ interface IListener<T> {
 
     fun key(): String
 
-    fun result(data: T)
+    fun result(data: T, cause: String)
 
 }
