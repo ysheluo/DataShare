@@ -6,7 +6,7 @@ import android.util.Log
 import io.reactivex.disposables.Disposable
 import kk.com.datashare.DataManager
 import kk.com.datashare.IListener
-import kk.com.demo.R
+import kk.com.rxjava.R
 
 class KotlinActivity : Activity() {
 
