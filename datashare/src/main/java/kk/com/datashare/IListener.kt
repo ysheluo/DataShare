@@ -1,12 +1,13 @@
 package kk.com.datashare
 
-/**
- * 数据监听回调
- */
 interface IListener<T> {
 
-    fun key(): String
+    fun result(resultKey: String): T?
 
-    fun result(data: T, cause: String)
+    fun success(result: (T?, cause: String) -> Unit): IListener<T>
+
+    fun fail(result: (failData: String?, cause: String?) -> Unit): IListener<T>
+
+    fun listenOnce()
 
 }

@@ -4,9 +4,8 @@ import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import io.reactivex.disposables.Disposable
-import kk.com.datashare.DataManager
-import kk.com.datashare.IListener
-import kk.com.rxjava.R
+import kk.com.datashare.DataShareManager
+import kk.com.datashare.listen
 
 class KotlinActivity : Activity() {
 
@@ -19,29 +18,19 @@ class KotlinActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kotlin)
+        createKey = DataShareManager.createKey()
 
-        createKey = DataManager.createKey()
-        DataManager.request(createKey, NetShareRequester<Test.A>(GoodsDetailParamCreator("新建")))
-        DataManager.request(createKey, NetShareRequester<Test.A>(GoodsDetailParamCreator("刷新")))
+        listen<String>(createKey, DemoRequester.TAG).success { result, cause ->
+            Log.e("哈哈", result + cause)
+        }
 
-        DataManager.request(createKey, NetShareRequester<Test.A>(GoodsDetailParamCreator("过来")))
-
-        DataManager.listen(createKey, object : IListener<String> {
-
-            override fun result(data: String, cause: String) {
-                Log.e("=====", "哈哈哈哈$data$cause")
-            }
-
-            override fun key(): String {
-                return GoodsDetailParamCreator.TAG
-            }
-        })
+        DataShareManager.doRequest(DemoRequester(), createKey, "init")
     }
 
     @Override
     override fun onDestroy() {
         super.onDestroy()
-        DataManager.destroy(createKey)
+        DataShareManager.destroy(createKey)
     }
 
 

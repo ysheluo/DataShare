@@ -1,17 +1,8 @@
 package kk.com.datashare
 
-interface IRequester<T> {
+interface IRequester {
 
-    fun bindDataHolder(dataHolder: IDataHolder<T>)
+    fun doRequest(key: Int, cause: String)
 
-
-    fun doRequest()
-
-
-    fun setResult(data: T)
-
-    fun key(): String
-
-    fun requestCause(): String
-
+    fun tag(): String
 }
