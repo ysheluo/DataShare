@@ -3,14 +3,12 @@ package kk.com.app
 import android.app.Activity
 import android.os.Bundle
 import android.util.Log
-import io.reactivex.disposables.Disposable
 import kk.com.datashare.DataShareManager
+import kk.com.datashare.doRequest
 import kk.com.datashare.listen
 
 class KotlinActivity : Activity() {
 
-
-    private lateinit var disposable: Disposable
 
     var createKey: Int = 0
 
@@ -24,7 +22,7 @@ class KotlinActivity : Activity() {
             Log.e("哈哈", result + cause)
         }
 
-        DataShareManager.doRequest(DemoRequester(), createKey, "init")
+        doRequest(DemoRequester(), createKey, "init")
     }
 
     @Override

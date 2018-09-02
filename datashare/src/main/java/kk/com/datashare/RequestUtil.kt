@@ -19,3 +19,7 @@ fun <T> result(key: Int, tag: String): T? {
 fun destroyShareContainer(key: Int) {
     DataShareManager.destroy(key)
 }
+
+fun <T> doRequest(absRequester: AbsRequester<T>, key: Int, cause: String) {
+    DataShareManager.doRequest(absRequester, key, cause)
+}
