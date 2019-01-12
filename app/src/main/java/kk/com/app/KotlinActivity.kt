@@ -10,7 +10,7 @@ import kk.com.datashare.listen
 class KotlinActivity : Activity() {
 
 
-    var createKey: Int = 0
+    private var createKey: Int = 0
 
     @Override
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +30,4 @@ class KotlinActivity : Activity() {
         super.onDestroy()
         DataShareManager.destroy(createKey)
     }
-
-
 }
