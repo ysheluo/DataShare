@@ -23,11 +23,10 @@ internal class DataHolder<DATA> {
 
     fun register(iListener: Listener<DATA>) {
         val isContains = mListeners.contains(iListener)
-        if (isContains) {
-            return
+        if (!isContains) {
+            mListeners.add(iListener)
         }
         giveResult(iListener)
-        mListeners.add(iListener)
     }
 
     private fun giveResult(iListener: Listener<DATA>) {

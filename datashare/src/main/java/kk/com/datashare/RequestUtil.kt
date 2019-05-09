@@ -12,6 +12,10 @@ fun <T> listen(key: Int, tag: String): IListener<T> {
     return DataShareManager.getContainerByKey(key).listen(tag)
 }
 
+fun <T> listenOnce(key: Int, tag: String): IListener<T> {
+    return DataShareManager.getContainerByKey(key).listenOnce(tag)
+}
+
 fun <T> result(key: Int, tag: String): T? {
     return DataShareManager.getContainerByKey(key).listen<T>(tag).result(tag)
 }

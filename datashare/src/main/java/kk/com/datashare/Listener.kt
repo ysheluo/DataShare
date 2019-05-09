@@ -7,6 +7,8 @@ internal class Listener<T>(private val iContainer: DataHolder<T>) : IListener<T>
 
     private var mFail: ((failData: String?, cause: String?) -> Unit)? = null
 
+    private var mCause = ""
+
     var isListenOnce = false
 
 
@@ -17,6 +19,9 @@ internal class Listener<T>(private val iContainer: DataHolder<T>) : IListener<T>
 
     override fun success(result: (T?, cause: String) -> Unit): IListener<T> {
         mSuccess = result
+        iContainer.mData?.let {
+            onSuccess(mCause)
+        }
         return this
     }
 
@@ -32,9 +37,12 @@ internal class Listener<T>(private val iContainer: DataHolder<T>) : IListener<T>
     }
 
     fun onSuccess(cause: String) {
-        mSuccess?.invoke(iContainer.mData, cause)
-        if (isListenOnce) {
-            iContainer.unRegister(this)
+        this.mCause = cause
+        mSuccess?.let {
+            it.invoke(iContainer.mData, cause)
+            if (isListenOnce) {
+                iContainer.unRegister(this)
+            }
         }
     }
 
@@ -50,5 +58,6 @@ internal class Listener<T>(private val iContainer: DataHolder<T>) : IListener<T>
 
     override fun listenOnce() {
         isListenOnce = true
+        iContainer.register(this)
     }
 }
